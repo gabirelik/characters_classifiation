@@ -15,8 +15,8 @@ def reshape_features(x, new_shape):
     return np.reshape(x, (x.shape[0], *new_shape))
 
 
-def load_data():
-    file_path = os.path.join(DATA_DIR, 'train.pkl')
+def load_data(dir=DATA_DIR):
+    file_path = os.path.join(dir, 'train.pkl')
     with open(file_path, 'rb') as file:
         x, y = pickle.load(file)
     x = reshape_features(x, (IMG_DIM, IMG_DIM))
