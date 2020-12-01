@@ -1,6 +1,8 @@
 import os
 import pickle
+import numpy as np
 from sklearn.model_selection import train_test_split
+from functools import reduce
 
 from config import DATA_DIR
 
@@ -8,11 +10,17 @@ from config import DATA_DIR
 IMG_DIM = 56
 
 
+def reshape_features(x, new_shape):
+    assert reduce(lambda a, b: a * b, new_shape) == x.shape[1]
+    return np.reshape(x, (x.shape[0], *new_shape))
+
+
 def load_data():
     file_path = os.path.join(DATA_DIR, 'train.pkl')
     with open(file_path, 'rb') as file:
-        data = pickle.load(file)
-    return data
+        x, y = pickle.load(file)
+    x = reshape_features(x, (IMG_DIM, IMG_DIM))
+    return x, y
 
 
 def split_dataset(x, y):
