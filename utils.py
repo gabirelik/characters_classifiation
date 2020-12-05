@@ -8,6 +8,7 @@ from config import DATA_DIR
 
 
 IMG_DIM = 56
+NUM_CLASSES = 36
 
 
 def reshape_features(x, new_shape):
